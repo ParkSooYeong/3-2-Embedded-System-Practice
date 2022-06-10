@@ -1,0 +1,15 @@
+LIBOBJS = 1.o 2.o
+all : test
+test : test.o libabc.so
+	$(CC)  -o  $@  test.o  -L.  -labc
+libabc.so : $(LIBOBJS)
+	$(CC)  -shared  -o  $@  $(LIBOBJS)
+test.o : test.c test.h
+1.o : 1.c
+	$(CC)  -c  -fPIC  $?
+2.o : 2.c
+	$(CC)  -c  -fPIC  $?
+.c.o :
+	$(CC)  -c  $<
+clean :
+	rm  -f  test  *.o  *.a  *.so
